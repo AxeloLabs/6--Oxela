@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "p6--oxela--firebase-root-service"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "p6--oxela--firebase-root-database"
+      cloudSql:
+        instanceId: "p6--oxela--firebase-root-instance"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]
