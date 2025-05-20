@@ -29,6 +29,7 @@ WEB AGENCY 2025 (v0.2.0)
 
 ## 1 Stack
 
+- [`node`](): v22
 - [`next`](https://starship.rs/): Next v15 + Intl v4
 - [`firebase`](https://github.com/BurntSushi/ripgrep): App Hosting + Firebase Data Connect (avril 2025)
 

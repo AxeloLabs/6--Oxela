@@ -11,9 +11,9 @@
   "scripts": {
     "dev": "next dev --turbo",
     "lint": "eslint src && tsc && prettier src --check",
-    "test": "pnpm run test:playwright && pnpm run test:jest",
-    "test:playwright": "playwright test",
-    "test:jest": "jest",
+    "test": "npm run test:e2e && npm run test:unit",
+    "test:e2e": "playwright test",
+    "test:unit": "jest",
     "build": "next build",
     "start": "next start",
     "changeset": "changeset",
@@ -22,12 +22,26 @@
   },
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
+    "lodash": "^4.17.21",
     "clsx": "^2.1.1",
     "next": "^15.3.0",
     "next-intl": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.4",
+    "@google/generative-ai": "^0.21.0",
+    "@headlessui/react": "^2.2.0",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.3.0",
+    "class-variance-authority": "^0.7.0",
+    "cookies-next": "^5.0.2",
+    "embla-carousel-react": "^8.3.1",
+    "firebase": "^11.1.0",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
+    "stripe": "^17.4.0",
+    "tailwind-merge": "^2.5.5",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
@@ -46,11 +60,17 @@
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.5.3",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "@types/react-dom": "^19.0.2",
+    "eslint-config-prettier": "^9.1.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "prettier": {
     "singleQuote": true,
     "bracketSpacing": false,
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "printWidth": 100,
+    "semi": false,
+    "tabWidth": 2
   }
 }

@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "allowArbitraryExtensions": true,
-    "target": "es5",
+    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -23,6 +23,22 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/[locale]/layout copy.tsx--NO",
+    "src/app/layout copy.tsx--NO",
+    "dataconnect-generated/js/default-connector/index.d copy.ts--NO",
+    "src/app/not-found copy.tsx--NO",
+    "src/components/layout/header/header copy.tsx--NO",
+    "src/app/[locale]/page copy.tsx--NO",
+    "src/app/[locale]/page copy.tsx-ORIG",
+    "src/app/[locale]/layout copy.tsx--ORIG",
+    "src/app/[locale]/layout.tsx--NO",
+    "src/components/layout/header/header",
+    "src/app/[locale]/layout--O.tsx-nouse"
+  ],
   "exclude": ["node_modules"]
 }

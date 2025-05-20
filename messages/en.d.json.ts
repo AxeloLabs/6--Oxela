@@ -8,17 +8,17 @@ declare const messages: {
   },
   "IndexPage": {
     "description": "This is a basic example that demonstrates the usage of <code>next-intl</code> with the Next.js App Router. Try changing the locale in the top right corner and see how the content changes.",
-    "title": "next-intl example"
+    "title": "Web Agency"
   },
   "LocaleLayout": {
-    "title": "next-intl example"
+    "title": "Web Agency"
   },
   "LocaleSwitcher": {
     "label": "Change language",
     "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} other {Unknown}}"
   },
   "Manifest": {
-    "name": "next-intl example"
+    "name": "Web Agency"
   },
   "Navigation": {
     "home": "Home",

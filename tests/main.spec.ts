@@ -1,111 +1,99 @@
-import {expect, test as it} from '@playwright/test';
+import {expect, test as it} from '@playwright/test'
 
 it('handles i18n routing', async ({page}) => {
-  await page.goto('/');
-  await expect(page).toHaveURL('/en');
+  await page.goto('/')
+  await expect(page).toHaveURL('/en')
 
   // A cookie remembers the last locale
-  await page.goto('/de');
-  await page.goto('/');
-  await expect(page).toHaveURL('/de');
-  await page
-    .getByRole('combobox', {name: 'Sprache ändern'})
-    .selectOption({value: 'en'});
+  await page.goto('/de')
+  await page.goto('/')
+  await expect(page).toHaveURL('/de')
+  await page.getByRole('combobox', {name: 'Sprache ändern'}).selectOption({value: 'en'})
 
-  await expect(page).toHaveURL('/en');
-  page.getByRole('heading', {name: 'next-intl example'});
-});
+  await expect(page).toHaveURL('/en')
+  page.getByRole('heading', {name: 'WELCOME - Web Agency'})
+})
 
 it('handles not found pages', async ({page}) => {
-  await page.goto('/unknown');
-  page.getByRole('heading', {name: 'Page not found'});
+  await page.goto('/unknown')
+  page.getByRole('heading', {name: 'Page not found'})
 
-  await page.goto('/de/unknown');
-  page.getByRole('heading', {name: 'Seite nicht gefunden'});
-});
+  await page.goto('/de/unknown')
+  page.getByRole('heading', {name: 'Seite nicht gefunden'})
+})
 
-it("handles not found pages for routes that don't match the middleware", async ({
-  page
-}) => {
-  await page.goto('/test.png');
-  page.getByRole('heading', {name: 'This page could not be found.'});
+it("handles not found pages for routes that don't match the middleware", async ({page}) => {
+  await page.goto('/test.png')
+  page.getByRole('heading', {name: 'This page could not be found.'})
 
-  await page.goto('/api/hello');
-  page.getByRole('heading', {name: 'This page could not be found.'});
-});
+  await page.goto('/api/hello')
+  page.getByRole('heading', {name: 'This page could not be found.'})
+})
 
 it('sets caching headers', async ({request}) => {
   for (const pathname of ['/en', '/en/pathnames', '/de', '/de/pfadnamen']) {
-    expect((await request.get(pathname)).headers()['cache-control']).toContain(
-      's-maxage=31536000'
-    );
+    expect((await request.get(pathname)).headers()['cache-control']).toContain('s-maxage=31536000')
   }
-});
+})
 
 it('can be used to configure metadata', async ({page}) => {
-  await page.goto('/en');
-  await expect(page).toHaveTitle('next-intl example');
+  await page.goto('/en')
+  await expect(page).toHaveTitle('WELCOME - Web Agency')
 
-  await page.goto('/de');
-  await expect(page).toHaveTitle('next-intl Beispiel');
-});
+  await page.goto('/de')
+  await expect(page).toHaveTitle('Webagentur')
+})
 
 it('can be used to localize the page', async ({page}) => {
-  await page.goto('/en');
-  page.getByRole('heading', {name: 'next-intl example'});
+  await page.goto('/en')
+  page.getByRole('heading', {name: 'WELCOME - Web Agency'})
 
-  await page.goto('/de');
-  page.getByRole('heading', {name: 'next-intl Beispiel'});
-});
+  await page.goto('/de')
+  page.getByRole('heading', {name: 'Webagentur'})
+})
 
 it('sets a cookie when necessary', async ({page}) => {
   function getCookieValue() {
-    return page.evaluate(() => document.cookie);
+    return page.evaluate(() => document.cookie)
   }
 
-  const response = await page.goto('/en');
-  expect(await response?.headerValue('set-cookie')).toBe(null);
+  const response = await page.goto('/en')
+  expect(await response?.headerValue('set-cookie')).toBe(null)
 
-  await page
-    .getByRole('combobox', {name: 'Change language'})
-    .selectOption({value: 'de'});
-  await expect(page).toHaveURL('/de');
-  expect(await getCookieValue()).toBe('NEXT_LOCALE=de');
+  await page.getByRole('combobox', {name: 'Change language'}).selectOption({value: 'de'})
+  await expect(page).toHaveURL('/de')
+  expect(await getCookieValue()).toBe('NEXT_LOCALE=de')
 
-  await page
-    .getByRole('combobox', {name: 'Sprache ändern'})
-    .selectOption({value: 'en'});
-  await expect(page).toHaveURL('/en');
-  expect(await getCookieValue()).toBe('NEXT_LOCALE=en');
+  await page.getByRole('combobox', {name: 'Sprache ändern'}).selectOption({value: 'en'})
+  await expect(page).toHaveURL('/en')
+  expect(await getCookieValue()).toBe('NEXT_LOCALE=en')
 
   // The Next.js Router cache kicks in here
   // https://nextjs.org/docs/app/building-your-application/caching#router-cache
-  await page
-    .getByRole('combobox', {name: 'Change language'})
-    .selectOption({value: 'de'});
-  await expect(page).toHaveURL('/de');
-  expect(await getCookieValue()).toBe('NEXT_LOCALE=de');
-});
+  await page.getByRole('combobox', {name: 'Change language'}).selectOption({value: 'de'})
+  await expect(page).toHaveURL('/de')
+  expect(await getCookieValue()).toBe('NEXT_LOCALE=de')
+})
 
 it("sets a cookie when requesting a locale that doesn't match the `accept-language` header", async ({
   page
 }) => {
-  const response = await page.goto('/de');
-  const value = await response?.headerValue('set-cookie');
-  expect(value).toContain('NEXT_LOCALE=de;');
-  expect(value).toContain('Path=/;');
-  expect(value).toContain('SameSite=lax');
-});
+  const response = await page.goto('/de')
+  const value = await response?.headerValue('set-cookie')
+  expect(value).toContain('NEXT_LOCALE=de;')
+  expect(value).toContain('Path=/;')
+  expect(value).toContain('SameSite=lax')
+})
 
 it('serves a robots.txt', async ({page}) => {
-  const response = await page.goto('/robots.txt');
-  const body = await response?.body();
-  expect(body?.toString()).toEqual('User-Agent: *\nAllow: *\n');
-});
+  const response = await page.goto('/robots.txt')
+  const body = await response?.body()
+  expect(body?.toString()).toEqual('User-Agent: *\nAllow: *\n')
+})
 
 it('serves a sitemap.xml', async ({page}) => {
-  const response = await page.goto('/sitemap.xml');
-  const body = await response!.body();
+  const response = await page.goto('/sitemap.xml')
+  const body = await response!.body()
   expect(body.toString()).toBe(
     `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -131,15 +119,15 @@ it('serves a sitemap.xml', async ({page}) => {
 </url>
 </urlset>
 `
-  );
-});
+  )
+})
 
 it('provides a manifest', async ({page}) => {
-  const response = await page.goto('/manifest.webmanifest');
-  const body = await response!.json();
+  const response = await page.goto('/manifest.webmanifest')
+  const body = await response!.json()
   expect(body).toEqual({
-    name: 'next-intl example',
+    name: 'WELCOME - Web Agency',
     start_url: '/',
     theme_color: '#101E33'
-  });
-});
+  })
+})
