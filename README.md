@@ -35,8 +35,10 @@ WEB AGENCY 2025 (v0.2.0)
 
 ## 2 Install
 
+```shell
 - [`npm run dev`](): run en dev mode
 - [`npm run build`](): build
+```
 
 ## 3 Consoles
 
@@ -57,6 +59,13 @@ WEB AGENCY 2025 (v0.2.0)
 <https://graphql.org/learn/schema/>
 
 ## 5 Realeases doc
+
+To setup your release management process :
+
+```shell
+npm run changeset
+npm run version-packages
+```
 
 <https://firebase.google.com/support/releases>
 
