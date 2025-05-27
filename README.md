@@ -14,8 +14,10 @@ README
 
 # Oxela
 
-(19 mai 2025)
+DEMO (19 mai 2025):  
+https://p6-oxela-firebase-webapp--p6--oxela--firebase-root.us-central1.hosted.app/en
 
+CHAPTERS:  
 1 - [Stack](#stack)  
 2 - [Install](#install)  
 3 - [Consoles](#consoles)  

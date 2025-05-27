@@ -4,7 +4,7 @@
     "title": "Etwas ist schief gelaufen!"
   },
   "IndexPage": {
-    "description": "Dies ist ein Beispiel, das die Verwendung von <code>next-intl</code> mit dem Next.js App Router demonstriert. Bei Ändern der Sprache rechts oben ändert sich der Inhalt dieser Seite.",
+    "description": "Willkommen bei unserer Webagentur. Oxela ist unsere mehrsprachige E-Commerce-Website (mit Firebase + Next.js).",
     "title": "Webagentur"
   },
   "LocaleLayout": {
